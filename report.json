@@ -1,0 +1,129 @@
+{
+  "target": "examples",
+  "scanned_at": "2026-10-24T20:32:10",
+  "resources_scanned": 24,
+  "summary": {
+    "HIGH": 5,
+    "MEDIUM": 4,
+    "LOW": 4
+  },
+  "findings": [
+    {
+      "rule_id": "S3-001",
+      "severity": "HIGH",
+      "resource": "aws_s3_bucket.logs",
+      "file": "insecure.tf",
+      "message": "Bucket ACL is 'public-read' - anyone on the internet can read it",
+      "iso27001": "A.8.3 Information access restriction",
+      "bsi": "OPS.2.2 Cloud-Nutzung"
+    },
+    {
+      "rule_id": "NET-001",
+      "severity": "HIGH",
+      "resource": "aws_security_group.web",
+      "file": "insecure.tf",
+      "message": "SSH (port 22) is open to 0.0.0.0/0 (the whole internet)",
+      "iso27001": "A.8.20 Networks security",
+      "bsi": "NET.1.1 Netzarchitektur und -design"
+    },
+    {
+      "rule_id": "DB-002",
+      "severity": "HIGH",
+      "resource": "aws_db_instance.main",
+      "file": "insecure.tf",
+      "message": "Database is publicly accessible from the internet",
+      "iso27001": "A.8.20 Networks security",
+      "bsi": "NET.1.1 Netzarchitektur und -design"
+    },
+    {
+      "rule_id": "DB-001",
+      "severity": "HIGH",
+      "resource": "aws_db_instance.main",
+      "file": "insecure.tf",
+      "message": "Database storage is not encrypted at rest",
+      "iso27001": "A.8.24 Use of cryptography",
+      "bsi": "CON.1 Kryptokonzept"
+    },
+    {
+      "rule_id": "IAM-001",
+      "severity": "HIGH",
+      "resource": "aws_iam_policy.admin",
+      "file": "insecure.tf",
+      "message": "Policy allows all actions (\"Action\": \"*\") - full admin rights",
+      "iso27001": "A.8.2 Privileged access rights",
+      "bsi": "ORP.4 Identitäts- und Berechtigungsmanagement"
+    },
+    {
+      "rule_id": "API-001",
+      "severity": "MEDIUM",
+      "resource": "aws_apigatewayv2_stage.default_stage",
+      "file": "capstone.tf",
+      "message": "API stage has no access logging",
+      "iso27001": "A.8.15 Logging",
+      "bsi": "OPS.1.1.5 Protokollierung"
+    },
+    {
+      "rule_id": "DDB-001",
+      "severity": "MEDIUM",
+      "resource": "aws_dynamodb_table.tickets",
+      "file": "capstone.tf",
+      "message": "Point-in-time recovery (backup) is not enabled",
+      "iso27001": "A.8.13 Information backup",
+      "bsi": "CON.3 Datensicherungskonzept"
+    },
+    {
+      "rule_id": "SNS-001",
+      "severity": "MEDIUM",
+      "resource": "aws_sns_topic.alerts",
+      "file": "capstone.tf",
+      "message": "SNS topic is not encrypted with a KMS key",
+      "iso27001": "A.8.24 Use of cryptography",
+      "bsi": "CON.1 Kryptokonzept"
+    },
+    {
+      "rule_id": "DDB-001",
+      "severity": "MEDIUM",
+      "resource": "aws_dynamodb_table.orders",
+      "file": "insecure.tf",
+      "message": "Point-in-time recovery (backup) is not enabled",
+      "iso27001": "A.8.13 Information backup",
+      "bsi": "CON.3 Datensicherungskonzept"
+    },
+    {
+      "rule_id": "LAM-001",
+      "severity": "LOW",
+      "resource": "aws_lambda_function.notifier",
+      "file": "capstone.tf",
+      "message": "Lambda X-Ray tracing is not active",
+      "iso27001": "A.8.16 Monitoring activities",
+      "bsi": "OPS.1.1.5 Protokollierung"
+    },
+    {
+      "rule_id": "LAM-001",
+      "severity": "LOW",
+      "resource": "aws_lambda_function.notifier_fn",
+      "file": "capstone.tf",
+      "message": "Lambda X-Ray tracing is not active",
+      "iso27001": "A.8.16 Monitoring activities",
+      "bsi": "OPS.1.1.5 Protokollierung"
+    },
+    {
+      "rule_id": "LAM-001",
+      "severity": "LOW",
+      "resource": "aws_lambda_function.archival_fn",
+      "file": "capstone.tf",
+      "message": "Lambda X-Ray tracing is not active",
+      "iso27001": "A.8.16 Monitoring activities",
+      "bsi": "OPS.1.1.5 Protokollierung"
+    },
+    {
+      "rule_id": "LOG-001",
+      "severity": "LOW",
+      "resource": "aws_cloudwatch_log_group.app",
+      "file": "insecure.tf",
+      "message": "Log group has no retention period set",
+      "iso27001": "A.8.15 Logging",
+      "bsi": "OPS.1.1.5 Protokollierung"
+    }
+  ]
+}

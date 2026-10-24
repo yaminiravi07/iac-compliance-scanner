@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IaC Compliance Report</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; margin: 40px; color: #1f2933; background: #f7f8fa; }
+  h1 { margin-bottom: 4px; }
+  .meta { color: #616e7c; margin-bottom: 24px; }
+  .cards { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+  .card { background: white; border-radius: 8px; padding: 16px 24px; min-width: 120px;
+           box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .card .num { font-size: 32px; font-weight: 700; }
+  .HIGH { color: #c62828; } .MEDIUM { color: #b26a00; } .LOW { color: #1565c0; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px;
+           overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e4e7eb; vertical-align: top; }
+  th { background: #1f2933; color: white; font-weight: 600; }
+  .badge { font-weight: 700; }
+  td:nth-child(1), td:nth-child(2) { white-space: nowrap; }
+  .ok { color: #2e7d32; font-size: 20px; }
+  footer { margin-top: 24px; color: #9aa5b1; font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>IaC Compliance Report</h1>
+<div class="meta">Target: <b>examples</b> &middot; Scanned: 2026-10-24 20:32 &middot; Resources: 24</div>
+<div class="cards">
+  <div class="card"><div class="num">13</div>Total findings</div>
+  <div class="card"><div class="num HIGH">5</div>High</div>
+  <div class="card"><div class="num MEDIUM">4</div>Medium</div>
+  <div class="card"><div class="num LOW">4</div>Low</div>
+</div>
+<table><tr><th>Severity</th><th>Rule</th><th>Resource</th><th>Problem</th><th>ISO 27001</th><th>BSI</th></tr>
+<tr><td class='badge HIGH'>HIGH</td><td>S3-001</td><td>aws_s3_bucket.logs<br><small>insecure.tf</small></td><td>Bucket ACL is &#x27;public-read&#x27; - anyone on the internet can read it</td><td>A.8.3 Information access restriction</td><td>OPS.2.2 Cloud-Nutzung</td></tr>
+<tr><td class='badge HIGH'>HIGH</td><td>NET-001</td><td>aws_security_group.web<br><small>insecure.tf</small></td><td>SSH (port 22) is open to 0.0.0.0/0 (the whole internet)</td><td>A.8.20 Networks security</td><td>NET.1.1 Netzarchitektur und -design</td></tr>
+<tr><td class='badge HIGH'>HIGH</td><td>DB-002</td><td>aws_db_instance.main<br><small>insecure.tf</small></td><td>Database is publicly accessible from the internet</td><td>A.8.20 Networks security</td><td>NET.1.1 Netzarchitektur und -design</td></tr>
+<tr><td class='badge HIGH'>HIGH</td><td>DB-001</td><td>aws_db_instance.main<br><small>insecure.tf</small></td><td>Database storage is not encrypted at rest</td><td>A.8.24 Use of cryptography</td><td>CON.1 Kryptokonzept</td></tr>
+<tr><td class='badge HIGH'>HIGH</td><td>IAM-001</td><td>aws_iam_policy.admin<br><small>insecure.tf</small></td><td>Policy allows all actions (&quot;Action&quot;: &quot;*&quot;) - full admin rights</td><td>A.8.2 Privileged access rights</td><td>ORP.4 Identitäts- und Berechtigungsmanagement</td></tr>
+<tr><td class='badge MEDIUM'>MEDIUM</td><td>API-001</td><td>aws_apigatewayv2_stage.default_stage<br><small>capstone.tf</small></td><td>API stage has no access logging</td><td>A.8.15 Logging</td><td>OPS.1.1.5 Protokollierung</td></tr>
+<tr><td class='badge MEDIUM'>MEDIUM</td><td>DDB-001</td><td>aws_dynamodb_table.tickets<br><small>capstone.tf</small></td><td>Point-in-time recovery (backup) is not enabled</td><td>A.8.13 Information backup</td><td>CON.3 Datensicherungskonzept</td></tr>
+<tr><td class='badge MEDIUM'>MEDIUM</td><td>SNS-001</td><td>aws_sns_topic.alerts<br><small>capstone.tf</small></td><td>SNS topic is not encrypted with a KMS key</td><td>A.8.24 Use of cryptography</td><td>CON.1 Kryptokonzept</td></tr>
+<tr><td class='badge MEDIUM'>MEDIUM</td><td>DDB-001</td><td>aws_dynamodb_table.orders<br><small>insecure.tf</small></td><td>Point-in-time recovery (backup) is not enabled</td><td>A.8.13 Information backup</td><td>CON.3 Datensicherungskonzept</td></tr>
+<tr><td class='badge LOW'>LOW</td><td>LAM-001</td><td>aws_lambda_function.notifier<br><small>capstone.tf</small></td><td>Lambda X-Ray tracing is not active</td><td>A.8.16 Monitoring activities</td><td>OPS.1.1.5 Protokollierung</td></tr>
+<tr><td class='badge LOW'>LOW</td><td>LAM-001</td><td>aws_lambda_function.notifier_fn<br><small>capstone.tf</small></td><td>Lambda X-Ray tracing is not active</td><td>A.8.16 Monitoring activities</td><td>OPS.1.1.5 Protokollierung</td></tr>
+<tr><td class='badge LOW'>LOW</td><td>LAM-001</td><td>aws_lambda_function.archival_fn<br><small>capstone.tf</small></td><td>Lambda X-Ray tracing is not active</td><td>A.8.16 Monitoring activities</td><td>OPS.1.1.5 Protokollierung</td></tr>
+<tr><td class='badge LOW'>LOW</td><td>LOG-001</td><td>aws_cloudwatch_log_group.app<br><small>insecure.tf</small></td><td>Log group has no retention period set</td><td>A.8.15 Logging</td><td>OPS.1.1.5 Protokollierung</td></tr>
+</table>
+<footer>Controls: ISO/IEC 27001:2022 Annex A &middot; BSI IT-Grundschutz. Generated by iac-compliance-scanner.</footer>
+</body>
+</html>
