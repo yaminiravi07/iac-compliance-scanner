@@ -39,6 +39,10 @@ def main():
                       f.message, f.iso27001, f.bsi)
     console.print(table)
 
+    counts = {sev: sum(f.severity == sev for f in findings) for sev in SEVERITY_COLOUR}
+    console.print(f"[red]HIGH: {counts['HIGH']}[/red]   [yellow]MEDIUM: {counts['MEDIUM']}[/yellow]   "
+                  f"[cyan]LOW: {counts['LOW']}[/cyan]\n")
+
     # Exit code 1 means "issues found", so a CI pipeline can fail the build.
     sys.exit(1)
 
